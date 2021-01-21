@@ -3,19 +3,18 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 
-	"github.com/fourlinecode/golang/filereader"
+	"github.com/fourlinecode/golang/handlers"
 )
 
 func main() {
-	page := filereader.Page{Title: "A new world", Body: []byte("This is the body for the book.")}
+	// http.HandleFunc("/", handlers.RootHandler)
+	http.HandleFunc("/page/", handlers.PageHandler)
 
-	page.Save()
-
-	newPage, err := filereader.Load("Hello world")
+	err := http.ListenAndServe(":2333", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("Title: %s\nBody: %s", newPage.Title, newPage.Body)
+	fmt.Println("Server started on port :2333")
 }

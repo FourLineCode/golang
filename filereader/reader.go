@@ -4,8 +4,8 @@ import "io/ioutil"
 
 // Page of a book
 type Page struct {
-	Title string
-	Body  []byte
+	Title string `json:"title"`
+	Body  []byte `json:"body"`
 }
 
 // Save the book
@@ -16,7 +16,7 @@ func (p *Page) Save() error {
 }
 
 // Load a page
-func (p *Page) Load(title string) (*Page, error) {
+func Load(title string) (*Page, error) {
 	filename := title + ".txt"
 
 	body, err := ioutil.ReadFile(filename)
